@@ -29,4 +29,14 @@ router.get('/customer', (req, res) =>{
     })
 });
 
+router.get("/customer:id", (req, res) => {
+    CustomerModel.findOne()
+    .then(doc => {
+      res.status(200).send(doc);
+    })
+    .catch(err => {
+      res.status(500).json(err);
+    });
+});
+
 module.exports = router;

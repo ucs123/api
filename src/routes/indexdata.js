@@ -30,17 +30,21 @@ router.get("/indexdata", (req, res) => {
     });
 });
 
+router.get("/indexdata:id", (req, res) => {
+  IndexDataModel.findOne()
+    .then(doc => {
+      res.status(200).send(doc);
+    })
+    .catch(err => {
+      res.status(500).json(err);
+    });
+});
+
 router.put("/indexdata:id", (req, res) => {
   if (!req.body) {
     return res.status(400).send("Request body is missing");
   }
   console.log(req.params);
-//   IndexDataModel.findOneAndUpdate({ _id: req.params.id }, function(err, doc) {
-//     doc.cdata = [req.body];
-//     doc.save().then(doc => {
-//       res.status(200).send(doc);
-//     });
-//   });
   IndexDataModel.findOneAndUpdate(
     { _id: req.params.id },
     { $push: {"cdata" : req.body} }
