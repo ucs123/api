@@ -30,8 +30,8 @@ router.get("/indexdata", (req, res) => {
     });
 });
 
-router.get("/indexdata:id", (req, res) => {
-  IndexDataModel.findOne()
+router.get("/indexdata:cname", (req, res) => {
+  IndexDataModel.findOne({cname: cname})
     .then(doc => {
       res.status(200).send(doc);
     })
