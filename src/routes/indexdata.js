@@ -31,8 +31,14 @@ router.get("/indexdata", (req, res) => {
 });
 
 router.get("/indexdata:cname", (req, res) => {
-  IndexDataModel.findOne({cname: cname})
+  console.log(req.params.cname);
+  let cname = req.params.cname;
+  while (cname.charAt(0) === ":") {
+    cname = cname.substr(1);
+  }
+  IndexDataModel.findOne({ nav_link: cname })
     .then(doc => {
+      console.log("doc " + doc);
       res.status(200).send(doc);
     })
     .catch(err => {
@@ -47,7 +53,7 @@ router.put("/indexdata:id", (req, res) => {
   console.log(req.params);
   IndexDataModel.findOneAndUpdate(
     { _id: req.params.id },
-    { $push: {"cdata" : req.body} }
+    { $push: { cdata: req.body } }
   ).exec(function(err, doc) {
     if (err) {
       console.log(err);
