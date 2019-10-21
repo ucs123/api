@@ -8,6 +8,7 @@ let personRoute = require("./routes/person");
 let customerRoute = require("./routes/customer");
 let navRoute = require("./routes/nav");
 let indexDataRoute = require("./routes/indexdata");
+let weatherRoute = require("./routes/weather");
 
 
 app.use(bodyParser.json());
@@ -30,6 +31,8 @@ app.use(personRoute);
 app.use(customerRoute);
 app.use(navRoute);
 app.use(indexDataRoute);
+app.use(weatherRoute);
+
 
 app.use(express.static("public"));
 
@@ -40,7 +43,6 @@ app.use((req, res, next) => {
 
 //500
 app.use((err, req, res, next) => {
-// mubark.ali@hdfcbank.com
   res.sendFile(path.join(__dirname, '../public/500.html'))
 });
 
